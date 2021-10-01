@@ -1,83 +1,115 @@
-
-
-
 // Define the generatePassword function seperately
 function generatePassword(){
-  // const variable for charsets 
+
+// const variable for charsets 
   // const 1.
-    const alphabet = 'abcedfghijklmnopqrstuvwxyz';
+  const alphabet = 'abcedfghijklmnopqrstuvwxyz';
   // const 2.
-    const numbers = '0123456789';
+  const numbers = '0123456789';
   // const 3.
-    const special = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+  const special = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
   // const 4.
   
   // Const variable initialized to the value of the user num input 
   let userNumInput = prompt('Select Desired Password Length, Min: 8, Max: 128');
 
+  // Variable Initialized to the value of user selected boolean. 
   let userSelectLower = confirm('Include lowercase values?');
 
+  // Variable initialized 
   let userSelectUpper = confirm('How bout Uppercase?');
 
   let userSelectSpecial = confirm('Special Chars?');
 
   const userSelectNum = confirm('Numerical Vals as Well?');
 
-  // const random variable initialized to the value of 
-  // var generateRandomNum = Math.floor(Math.random() * startingChars.length);
-  
+  // Starting Char Set initialized to the value of an empty string. 
+  let startingChars = '';
 
-   // Starting Char Set initialized to the value of an empty string. 
-   let startingChars = '';
+  // scrambled chars initialized to the value of an empty string 
+  let scrambledChars = '';
+
+// Final Password initialized to the value of an empty string 
+var finalPassword = '';
+
+
+// Main Conditionals 
 
   // Conditionals 
+// NaN Use for Validation 
 
     // If the user selects a charset, add it to the value of startingCharSet
-    if (userSelectLower === true) {
-      startingChars += alphabet;
-      alert('Sickly. Lower case chars added.');
-    } 
+  if (userSelectLower === true) {
+    startingChars += alphabet;
+  } 
 
-    if (userSelectUpper === true) {
-      startingChars += alphabet.toUpperCase();
-      alert('upperCase ON BOO');
-    }
+  if (userSelectUpper === true) {
+    startingChars += alphabet.toUpperCase();
+  }
 
-    if (userSelectSpecial === true) {
-      startingChars += special;
-    }
+  if (userSelectSpecial === true) {
+    startingChars += special;
+  }
 
-    if (userSelectNum === true) {
-      startingChars += numbers;
-    }
+  if (userSelectNum === true) {
+    startingChars += numbers;
+  }
 
-  console.log(startingChars); // add alphabet
 
-  // Final Password initialized to the value of an empty string 
-  var finalPassword = '';
-  
- while (finalPassword.length < userNumInput) {
-  var generateRandomNum = Math.floor(Math.random() * startingChars.length);
-  finalPassword += startingChars.charAt(generateRandomNum);
- }
+  // const random variable initialized to the value of 
+  // var generateRandomNum = Math.floor(Math.random() * startingChars.length);
+
+// Main Functionality 
+// 1. yates Scramble 
+
+// Spread each character in the string of combined characters, into an array.    
+let arrayCharacters = [...startingChars];
+// variable i = length of the array of chars 
+let i = arrayCharacters.length; 
+
+// temp = to hold the value of a randomly selected element in the array
+let tempElement; 
+
+while (i-- > 0) {
+    // on each iteration, select a number at random between 0 and the current value of i
+    let generateIndex = Math.floor(Math.random() * (i + 1));
+    // Then, trade the value stored in tempElement with the value of an element selcted at a random index 
+    tempElement = arrayCharacters[generateIndex];
+
+    // Now that the random element has been stored, store the last element in the array
+    arrayCharacters[generateIndex] = arrayCharacters[i];
+    // Trade the last element in the array with the random  
+    arrayCharacters[i] = tempElement; 
+}
+// Outside of the loop, convert the scrambled array into a string value. 
+scrambledChars = arrayCharacters.join('');
+
+// Slice the scrambledChars string beginning with 0 index, and ending at userInputNum 
+return scrambledChars.slice(0, userNumInput);
+
+
+  // while (finalPassword.length < userNumInput) {
+  //   var generateRandomNum = Math.floor(Math.random() * startingChars.length);
+  //   finalPassword += startingChars.charAt(generateRandomNum);
+  // }
+
+
+} 
+// End generatePassword 
+
+
+
 
 //  for (let i=finalPassword.length - 1; i<userNumInput; i++) {
 //   var generateRandomNum = Math.floor(Math.random() * startingChars.length);
 //   finalPassword += startingChars.charAt(generateRandomNum);
 //  }
 
- return finalPassword;
+
     // Return finalPassword to the global memory. 
     // Which is then passed by the invocation of generatePassword within writePassword (but never returned out of the functions local memory)
   
-    // Return 
-  
-  
-  
-  
-  
-  
-  }
+    // Return
   
   
   
